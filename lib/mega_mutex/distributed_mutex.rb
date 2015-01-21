@@ -7,9 +7,12 @@ module MegaMutex
   class DistributedMutex
     class << self
       def cache
-        options = { :namespace => MegaMutex.configuration.namespace }
-        options = options.merge( username:MegaMutex.configuration.username, password:MegaMutex.configuration.password ) if MegaMutex.configuration.username
-        @cache ||= Dalli::Client.new MegaMutex.configuration.memcache_servers, options
+        unless @cache        
+          options = { :namespace => MegaMutex.configuration.namespace }
+          options = options.merge( username:MegaMutex.configuration.username, password:MegaMutex.configuration.password ) if MegaMutex.configuration.username
+          @cache = Dalli::Client.new MegaMutex.configuration.memcache_servers, options
+        end
+        @cache
       end
     end
 
