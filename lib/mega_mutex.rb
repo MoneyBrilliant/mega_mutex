@@ -86,7 +86,7 @@ module MegaMutex
   end
 
   class Configuration
-    attr_accessor :memcache_servers, :namespace
+    attr_accessor :memcache_servers, :namespace, :username, :password
 
     def initialize
       @memcache_servers = 'localhost'
